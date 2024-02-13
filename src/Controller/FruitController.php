@@ -15,21 +15,28 @@ class FruitController extends AbstractController
         $donneeJson = file_get_contents($cheminJson);
         if($donneeJson === false)
             throw new \Exception("Fichier Json Introuvable");
-        $listeFruit = json_decode($donneeJson, true);
-        return $listeFruit;
+        return json_decode($donneeJson, true);
+    }
+
+    public function normaliseNomFruit(string $fruit) : string{
+        $accents = ['é', 'è', 'ê', 'à', 'ù'];
+        $sansAccents = ['e', 'e', 'e', 'a', 'u'];
+        return str_replace($accents, $sansAccents, strtolower($fruit));
     }
 
     //Vérifie si l'entrée de l'utilisateur est un fruit ou non
-    public function CheckFruit(Request $request) : JsonResponse{
+    public function CheckFruit(Request $request) : bool{
         $userInput = $request->query->get('fruit');
         $listeFruit = $this->getListeFruit();
         $isFruitValid = in_array($userInput, $listeFruit);
+
         if ($isFruitValid)
-            return new JsonResponse(['fruit valide' => true]);
-        foreach ($listeFruit as $fruit){
-            if(levenshtein(strtolower($userInput), strtolower($fruit)) <= 1)
-                return new JsonResponse(['fruit valide' => true]);
-        }
-        return new JsonResponse(['fruit valide' => false]);
+            return true;
+
+        foreach ($listeFruit as $fruit)
+            if(levenshtein($this->normaliseNomFruit($userInput), $this->normaliseNomFruit($fruit)) <= 1)
+                return true;
+
+        return false;
     }
 }
