@@ -1,3 +1,116 @@
-body {
-    background-color: skyblue;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin : 0;
+    padding : 0;
+}
+
+/* HEADERBAR -----------------------------------------------*/
+
+.header-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width : auto;
+    padding : 20px;
+}
+
+.heading-container {
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title-container h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.header-subtitle-container h2 {
+    font-size: 1.5em;
+    margin: 0;
+    color: #707070;
+}
+
+.navigation-container {
+    position: relative;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background-color: #f0f0f0;
+    border: 1px solid #dcdcdc;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none; /* Hidden by default, shown when active */
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+
+
+
+/* PRODUCTCARD -----------------------------------------------*/
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.product-info h3 {
+    margin: 0;
+    color: #333;
+}
+
+.product-actions {
+    margin-top: 10px;
+}
+
+.product-actions button,
+.product-actions .button {
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-right: 8px;
+}
+
+.product-more-info {
+    display: none;
+    margin-top: 10px;
 }
