@@ -46,6 +46,12 @@ class Album
     #[ORM\OneToOne(mappedBy: 'idAlbum', cascade: ['persist', 'remove'])]
     private ?Produit $produit = null;
 
+    #[ORM\ManyToOne(inversedBy: 'wishlist')]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $fruit = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,6 +190,30 @@ class Album
         }
 
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFruit(): ?string
+    {
+        return $this->fruit;
+    }
+
+    public function setFruit(string $fruit): static
+    {
+        $this->fruit = $fruit;
 
         return $this;
     }
