@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
@@ -23,6 +25,14 @@ class User
 
     #[ORM\Column(length: 100)]
     private ?string $mail = null;
+
+    #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'user')]
+    private Collection $wishlist;
+
+    public function __construct()
+    {
+        $this->wishlist = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +78,36 @@ class User
     public function setMail(string $mail): static
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getWishlist(): Collection
+    {
+        return $this->wishlist;
+    }
+
+    public function addWishlist(Album $wishlist): static
+    {
+        if (!$this->wishlist->contains($wishlist)) {
+            $this->wishlist->add($wishlist);
+            $wishlist->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWishlist(Album $wishlist): static
+    {
+        if ($this->wishlist->removeElement($wishlist)) {
+            // set the owning side to null (unless already changed)
+            if ($wishlist->getUser() === $this) {
+                $wishlist->setUser(null);
+            }
+        }
 
         return $this;
     }

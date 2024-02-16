@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Service;
 
+use App\Controller\Discogs;
 use Discogs\ClientFactory;
-use Discogs\DiscogsClient;
 
 class ApiConnection {
 
-    public var $client = null;
+    public $client = null;
 
     public function __construct(){
         if ($this->client == null ){
@@ -31,10 +31,11 @@ class ApiConnection {
         $response=$this->client->search([
             'q' => $text
         ]);
-// Loop through results
+        return $response;
+        /* // Loop through results
         foreach ($response['results'] as $result) {
             var_dump($result['title']);
-        }
+        }*/
     }
 }
 
