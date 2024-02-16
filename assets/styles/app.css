@@ -78,4 +78,39 @@
 
 
 
-/* HEADERBAR -----------------------------------------------*/
+/* PRODUCTCARD -----------------------------------------------*/
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.product-info h3 {
+    margin: 0;
+    color: #333;
+}
+
+.product-actions {
+    margin-top: 10px;
+}
+
+.product-actions button,
+.product-actions .button {
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-right: 8px;
+}
+
+.product-more-info {
+    display: none;
+    margin-top: 10px;
+}
