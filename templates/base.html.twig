@@ -11,7 +11,11 @@
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+
+
+
     <body>
-        {% block body %}{% endblock %}
+        <twig:Header_Bar />
+        <twig:Product_Card />
     </body>
 </html>
