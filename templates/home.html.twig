@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album List
+{% endblock %}
+
+{% block body %}
+	<div data-controller="collapsible">
+		<button data-action="click->collapsible#toggle">See Categories</button>
+		<div class="categories-container hidden" data-collapsible-target="container">
+			{% for category, albums in albums %}
+				<a href="{{ path('album_category', {'categoryName': category}) }}" class="category-button">{{ category }}</a>
+			{% endfor %}
+		</div>
+	</div>
+	<div data-controller="slider">
+		{% for category, albums in albums %}
+			<div class='categoryTitleWrapper'>
+				<h2 class='categoryTitle'>
+					<a href="{{ path('album_category', {'categoryName': category}) }}">{{ category }}</a>
+				</h2>
+			</div>
+			<div data-controller="slider" class="slider">
+				{% for album in albums %}
+					<div class="card">
+						<img src="{{ album.coverImage }}" alt="Cover image">
+						<h3>{{ album.nom }}</h3>
+						<p>Artist:
+							{{ album.artiste }}</p>
+						<p>Year:
+							{{ album.sortie }}</p>
+						<p>Label:
+							{{ album.label }}</p>
+						<p>Genres:
+							{{ album.styles|join(', ') }}</p>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
