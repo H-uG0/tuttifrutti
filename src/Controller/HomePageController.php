@@ -26,16 +26,18 @@ class HomePageController extends AbstractController
     {
         $albums = $this->getAlbums();
         $categoryAlbums = $albums[$categoryName] ?? [];
+        $categories = array_keys($albums);
 
         return $this->render('category.html.twig', [
             'categoryName' => $categoryName,
             'albums' => $categoryAlbums,
+            'categories' => $categories,
         ]);
     }
 
     // You might want to extract the albums fetching logic into its own method
 // or service if you haven't already, to avoid code duplication.
-    private function getAlbums(): array
+    private function getAlbums(): array // à mettre dans le modele ou le repository
     {
         // This method should return the albums array as shown previously
         // Replace this with your actual data fetching logic

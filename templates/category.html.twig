@@ -11,7 +11,7 @@
 	<div data-controller="collapsible">
 		<button data-action="click->collapsible#toggle">See Categories</button>
 		<div class="categories-container hidden" data-collapsible-target="container">
-			{% for category, albums in albums %}
+			{% for category in categories %}
 				<a href="{{ path('album_category', {'categoryName': category}) }}" class="category-button">{{ category }}</a>
 			{% endfor %}
 		</div>
