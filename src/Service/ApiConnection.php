@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Controller\Discogs;
 use Discogs\ClientFactory;
+use App\FruitController;
 
 class ApiConnection {
 
@@ -56,12 +57,11 @@ class ApiConnection {
     public function discogsSearchFruit(string $fruit) {
         $response=$this->discogsSearch($fruit);
         $retour = array();
-        $retour[$fruit] = array();
         $x = 0;
         foreach ($response['results'] as $result) {
             if ($x >= 50){break;}
             $x++;
-            array_push($retour[$fruit], array(
+            array_push($retour, array(
                 "nom"=>$result['title'],
                 "coverImage"=> $result['images'][0]['uri'],
                 "artiste"=> $this->getArtistsNameAsArray($result['artiste']),
@@ -76,14 +76,20 @@ class ApiConnection {
 
         return  ;
         /*sous la forme
-        [
+
             'fruit' => [
                 ["nom" => "Album1", 'coverImage' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs3VJ2joGlWpIE-UGCx_EXyiHG4ZltY-55Lk9ZjRq6zg&s', 'artiste' => ['Artist 1'], 'styles' => ['Pop', 'Rock'], "genres": ["Electronic", "Pop"], 'sortie' => '2021', 'label' => 'Label 1', 'tracklist'=> ["titre1", "titre2"]],
                 [...],
-            ],
-            'fruit2' => [...],
-        ]
+            ]
         */
+    }
+
+    public function getAllFruitsAlbums(){
+        $retour = array();
+        foreach (getListFruit()['fruits'] as $fruit){
+            array_push($retour, $fruit->$this->discogsSearchFruit($fruit));
+        }
+        return $retour;
     }
 }
 
