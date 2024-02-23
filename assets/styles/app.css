@@ -130,26 +130,75 @@ a {
     justify-content: center;
   }
   
-  /* Individual card styling */
-  .card {
-    flex: 0 0 auto;
-    width: 200px;
-    scroll-snap-align: start;
+  
+ /* Adjusting the card layout for centering and spacing */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Adjust content spacing */
+    align-items: center; /* Center align the content */
+    min-width: 240px; /* Adjust width as needed */
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: #fff; /* Optional: set a background color */
+    margin: 10px; /* Ensure there's space around the card */
   }
   
   .card img {
-    width: 100%;
-    display: block;
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: round corners for the image */
+    margin-bottom: 10px; /* Space between image and text */
   }
   
   .card h3,
   .card p {
-    padding: 0 10px;
+    width: 100%; /* Full width */
+    text-align: center; /* Center align text */
+    padding: 5px 0; /* Padding for spacing */
   }
+  
+  /* Ensure the button is visually integrated into the card */
+  .wish-list-button {
+    width: 80%; /* Button width relative to card */
+    padding: 10px 0; /* Adequate padding */
+    margin-top: 15px; /* Space from the last text element */
+    font-weight: bold; /* Optional: make the button text bold */
+    text-transform: uppercase; /* Optional: uppercase text for the button */
+    letter-spacing: 1px; /* Optional: increase letter spacing for better readability */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Smooth transition for hover effects */
+    background-color : orange;
+    text-align: center;
+    border-radius: 10PX;
+  }
+  
+  .wish-list-button:hover {
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Shadow effect for depth */
+  }
+  
+  /* Adjusting the slider for better visual integration */
+  .slider {
+    justify-content: flex-start; /* Align items to the start */
+    padding: 20px 0; /* Padding top and bottom */
+    overflow-y: hidden; /* Hide vertical overflow */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card {
+      width: 90%; /* Full width on smaller screens */
+      margin: 10px auto; /* Centering the card horizontally */
+    }
+  
+    .slider {
+      overflow-x: scroll; /* Allow scrolling on smaller screens */
+    }
+  }
+  
   
   /* Ensures cards are visually separated and centered */
   .slider::-webkit-scrollbar {
@@ -232,3 +281,10 @@ a {
   .visible {
     display: flex !important; /* Important to override any other display property */
   }
+
+  .wishlist-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content : center;
+}

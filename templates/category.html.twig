@@ -24,17 +24,18 @@
 	<div class="albums-container">
 		{% for album in albums %}
 			<div class="card">
-				<img src="{{ album.coverImage }}" alt="Cover image">
-				<h3>{{ album.nom }}</h3>
-				<p>Artist:
-					{{ album.artiste }}</p>
-				<p>Year:
-					{{ album.sortie }}</p>
-				<p>Label:
-					{{ album.label }}</p>
-				<p>Genres:
-					{{ album.styles|join(', ') }}</p>
-			</div>
+						<img src="{{ album.coverImage }}" alt="Cover image">
+						<h3>{{ album.nom }}</h3>
+						<p>Artist:
+							{{ album.artiste }}</p>
+						<p>Year:
+							{{ album.sortie }}</p>
+						<p>Label:
+							{{ album.label }}</p>
+						<p>Genres:
+							{{ album.styles|join(', ') }}</p>
+                        <a href="{{ path('addToWishList', {'albumId': album.id}) }}" class="wish-list-button">Add to Wish List</a>
+					</div>
 		{% endfor %}
 	</div>
 {% endblock %}

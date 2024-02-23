@@ -32,6 +32,7 @@
 							{{ album.label }}</p>
 						<p>Genres:
 							{{ album.styles|join(', ') }}</p>
+                        <a href="{{ path('addToWishList', {'albumId': album.id}) }}" class="wish-list-button">Add to Wish List</a>
 					</div>
 				{% endfor %}
 			</div>

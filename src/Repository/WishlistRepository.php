@@ -21,7 +21,7 @@ class WishlistRepository extends ServiceEntityRepository
         parent::__construct($registry, Wishlist::class);
     }
 
-//    /**
+    //    /**
 //     * @return Wishlist[] Returns an array of Wishlist objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +36,7 @@ class WishlistRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Wishlist
+    //    public function findOneBySomeField($value): ?Wishlist
 //    {
 //        return $this->createQueryBuilder('w')
 //            ->andWhere('w.exampleField = :val')
@@ -45,4 +45,19 @@ class WishlistRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function isAlbumInWishlist(string $userId, string $albumId): bool
+    {
+        $qb = $this->createQueryBuilder('w')
+            ->select('count(w.id)')
+            ->where('w.idUser = :userId')
+            ->andWhere('w.albumLink = :albumId')
+            ->setParameter('userId', $userId)
+            ->setParameter('albumId', $albumId)
+            ->getQuery();
+
+        $count = $qb->getSingleScalarResult();
+
+        return $count > 0;
+    }
 }
