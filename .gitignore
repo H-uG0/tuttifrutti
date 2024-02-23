@@ -25,3 +25,5 @@
 
 /tests/
 /translations/
+/.env
+/.idea/
