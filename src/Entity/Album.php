@@ -49,7 +49,7 @@ class Album
     #[ORM\ManyToOne(inversedBy: 'wishlist')]
     private ?User $user = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $fruit = null;
 
     public function getId(): ?int

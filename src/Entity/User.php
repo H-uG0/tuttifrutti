@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
@@ -23,11 +24,14 @@ class User
     #[ORM\Column(length: 70, nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $mail = null;
 
     #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'user')]
     private Collection $wishlist;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $uuid = null;
 
     public function __construct()
     {
@@ -108,6 +112,18 @@ class User
                 $wishlist->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): static
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
