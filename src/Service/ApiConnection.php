@@ -37,6 +37,54 @@ class ApiConnection {
             var_dump($result['title']);
         }*/
     }
+
+    private function getArtistsNameAsArray($artists) {
+        $arr = array();
+        foreach ($artists as $art){
+            array_push($arr, $art['name']);
+        }
+        return $arr;
+    }
+    private function getTracksAsArray($tracklist) {
+        $tracksTitles = array();
+        foreach ($tracklist as $t){
+            array_push($tracksTitles, $t['title']);
+        }
+        return $tracksTitles;
+    }
+
+    public function discogsSearchFruit(string $fruit) {
+        $response=$this->discogsSearch($fruit);
+        $retour = array();
+        $retour[$fruit] = array();
+        $x = 0;
+        foreach ($response['results'] as $result) {
+            if ($x >= 50){break;}
+            $x++;
+            array_push($retour[$fruit], array(
+                "nom"=>$result['title'],
+                "coverImage"=> $result['images'][0]['uri'],
+                "artiste"=> $this->getArtistsNameAsArray($result['artiste']),
+                "styles"=> $result['styles'],
+                "genres"=> $result['genres'],
+                "sortie"=> $result['year'],
+                "label"=> $result['labels'][0]['name'],
+                "tracklist"=> $this->getTracksAsArray($result['tracklist']),
+            ));
+        }
+        return $retour;
+
+        return  ;
+        /*sous la forme
+        [
+            'fruit' => [
+                ["nom" => "Album1", 'coverImage' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs3VJ2joGlWpIE-UGCx_EXyiHG4ZltY-55Lk9ZjRq6zg&s', 'artiste' => ['Artist 1'], 'styles' => ['Pop', 'Rock'], "genres": ["Electronic", "Pop"], 'sortie' => '2021', 'label' => 'Label 1', 'tracklist'=> ["titre1", "titre2"]],
+                [...],
+            ],
+            'fruit2' => [...],
+        ]
+        */
+    }
 }
 
 
