@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FruitController extends AbstractController
 {
     //return le json de la liste de fruit prédéfini
+    
     public function getListeFruit() : array{
-        $cheminJson = $this->getParameter('kernel.project_dir') . 'src/Data/Json/fruits.json';
+        $cheminJson = '../src/Data/Json/fruits.json';
         $donneeJson = file_get_contents($cheminJson);
         if($donneeJson === false)
             throw new \Exception("Fichier Json Introuvable");

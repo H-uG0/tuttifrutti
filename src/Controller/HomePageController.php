@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\ApiConnection;
-
+// Add LoggerInterface to the use statements at the top
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ApiConnection;
 
 class HomePageController extends AbstractController
 {
-    
+    private $logger;
+
+    public function __construct(LoggerInterface $logger) {
+        $this->logger = $logger;
+    }
 
     #[Route('/', name: 'home')]
-    public function index(): Response
-    {
+    public function index(): Response {
         $albums = $this->getAlbums();
         return $this->render('home.html.twig', [
             'albums' => $albums,
@@ -24,8 +28,7 @@ class HomePageController extends AbstractController
     }
 
     #[Route('/category/{categoryName}', name: 'album_category')]
-    public function category(string $categoryName): Response
-    {
+    public function category(string $categoryName): Response {
         $albums = $this->getAlbums();
         $categoryAlbums = $albums[$categoryName] ?? [];
         $categories = array_keys($albums);
@@ -36,13 +39,10 @@ class HomePageController extends AbstractController
             'categories' => $categories,
         ]);
     }
-   
-    // You might want to extract the albums fetching logic into its own method
-// or service if you haven't already, to avoid code duplication.
-    private function getAlbums(): array // à mettre dans le modele ou le repository
-    {
-        $ApiConn= New ApiConnection();
-        return getAllFruitsAlbums();
-        
+
+    private function getAlbums(): array {
+        // Pass the logger to ApiConnection
+        $apiConn = new ApiConnection($this->logger);
+        return $apiConn->getAllFruitsAlbums();
     }
 }
